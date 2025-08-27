@@ -11,9 +11,7 @@ const PORT = process.env.PORT || 3001;
 connectDB();
 
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://tu-sitio.netlify.app', 'https://*.netlify.app', 'http://localhost:3000'] 
-    : 'http://localhost:3000',
+  origin: true, // Permite todos los orígenes
   credentials: true
 }));
 app.use(express.json());
