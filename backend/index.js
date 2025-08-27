@@ -1,9 +1,14 @@
+require('dotenv').config();
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
+const connectDB = require('./config/database');
+const Cliente = require('./models/Cliente');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Conectar a MongoDB
+connectDB();
 
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
@@ -13,52 +18,43 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Inicializar base de datos
-const db = new sqlite3.Database('./db.sqlite', (err) => {
-  if (err) {
-    console.error('Error al abrir la base de datos', err);
-  } else {
-    db.run(`CREATE TABLE IF NOT EXISTS clientes (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nombre TEXT NOT NULL,
-      dni TEXT NOT NULL UNIQUE
-    )`);
+// Endpoint para agregar cliente
+app.post('/clientes', async (req, res) => {
+  try {
+    const { nombre, dni } = req.body;
+    const cliente = new Cliente({ nombre, dni });
+    await cliente.save();
+    res.json(cliente);
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({ error: 'DNI ya registrado' });
+    }
+    res.status(500).json({ error: 'Error al crear cliente' });
   }
 });
 
-// Endpoint para agregar cliente
-app.post('/clientes', (req, res) => {
-  const { nombre, dni } = req.body;
-  db.run('INSERT INTO clientes (nombre, dni) VALUES (?, ?)', [nombre, dni], function(err) {
-    if (err) {
-      return res.status(400).json({ error: 'DNI ya registrado o datos inválidos' });
-    }
-    res.json({ id: this.lastID, nombre, dni });
-  });
-});
-
 // Endpoint para listar clientes
-app.get('/clientes', (req, res) => {
-  db.all('SELECT * FROM clientes', [], (err, rows) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.json(rows);
-  });
+app.get('/clientes', async (req, res) => {
+  try {
+    const clientes = await Cliente.find().sort({ createdAt: -1 });
+    res.json(clientes);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener clientes' });
+  }
 });
 
 // Endpoint para buscar cliente por DNI
-app.get('/clientes/:dni', (req, res) => {
-  const { dni } = req.params;
-  db.get('SELECT * FROM clientes WHERE dni = ?', [dni], (err, row) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    if (!row) {
+app.get('/clientes/:dni', async (req, res) => {
+  try {
+    const { dni } = req.params;
+    const cliente = await Cliente.findOne({ dni });
+    if (!cliente) {
       return res.status(404).json({ error: 'Cliente no encontrado' });
     }
-    res.json(row);
-  });
+    res.json(cliente);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al buscar cliente' });
+  }
 });
 
 // Endpoint para consultar al VERAZ (simulado)
@@ -75,4 +71,5 @@ app.get('/veraz/:dni', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Servidor backend escuchando en http://localhost:${PORT}`);
+}); 
 }); 
