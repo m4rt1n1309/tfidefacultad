@@ -403,7 +403,8 @@ const Ecommerce = () => {
       display: 'flex', 
       flexDirection: 'column',
       overflowX: 'hidden',
-      width: '100%'
+      width: '100%',
+      boxSizing: 'border-box'
     }}>
       <Header />
       <main style={{ 
@@ -413,261 +414,126 @@ const Ecommerce = () => {
         overflowX: 'hidden',
         boxSizing: 'border-box'
       }}>
-        <h1 style={{
-          textAlign: 'center',
-          fontSize: 'clamp(20px, 5vw, 32px)',
-          fontWeight: 700,
-          color: '#333',
-          marginBottom: 'clamp(24px, 4vw, 40px)',
-          marginTop: 0,
-          padding: '0 clamp(16px, 3vw, 32px)'
-        }}>
-          Venta de Electrodomésticos
-        </h1>
-
-        {/* Carrusel de Banners Promocionales */}
         <div style={{
-          position: 'relative',
-          height: 'clamp(200px, 30vw, 300px)',
-          marginBottom: 40,
-          overflow: 'hidden',
-          borderRadius: 12,
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+          maxWidth: '1200px',
+          margin: '0 auto',
+          width: '100%',
+          boxSizing: 'border-box'
         }}>
-          {banners.map((banner, index) => (
-            <div
-              key={banner.id}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                background: banner.gradient,
-                color: '#fff',
-                padding: 'clamp(20px, 4vw, 30px)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center',
-                transition: 'opacity 0.5s ease-in-out',
-                opacity: currentBanner === index ? 1 : 0,
-                zIndex: currentBanner === index ? 2 : 1
-              }}
-            >
-              <div style={{
-                position: 'absolute',
-                top: 15,
-                right: 15,
-                background: '#fff',
-                color: banner.badgeColor,
-                padding: '8px 12px',
-                borderRadius: '50%',
-                fontSize: 12,
-                fontWeight: 'bold',
-                transform: 'rotate(15deg)',
-                animation: `${banner.animation} 2s infinite`
-              }}>
-                {banner.badge}
-              </div>
-              
-              <h2 style={{ 
-                fontSize: 'clamp(24px, 5vw, 36px)', 
-                margin: '0 0 15px 0',
-                fontWeight: 700,
-                textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
-              }}>
-                {banner.title}
-              </h2>
-              
-              {banner.hasProduct ? (
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 20,
-                  marginBottom: 20
-                }}>
-                  <img 
-                    src={process.env.PUBLIC_URL + banner.productImage} 
-                    alt={banner.productName} 
-                    style={{
-                      width: 80,
-                      height: 80,
-                      borderRadius: 12,
-                      objectFit: 'cover',
-                      border: '3px solid #fff',
-                      boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
-                    }}
-                  />
-                  <div>
-                    <h3 style={{ 
-                      fontSize: 'clamp(20px, 4vw, 28px)', 
-                      margin: '0 0 10px 0',
-                      fontWeight: 700,
-                      textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
-                    }}>
-                      {banner.productName}
-                    </h3>
-                    <p style={{ 
-                      fontSize: 'clamp(14px, 2.5vw, 18px)', 
-                      margin: 0,
-                      opacity: 0.9
-                    }}>
-                      <span style={{ textDecoration: 'line-through', opacity: 0.7 }}>{banner.oldPrice}</span>
-                      <span style={{ fontWeight: 'bold', marginLeft: 10 }}>{banner.newPrice}</span>
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <p style={{ 
-                  fontSize: 'clamp(16px, 3vw, 20px)', 
-                  margin: '0 0 20px 0',
-                  opacity: 0.9,
-                  maxWidth: '80%'
-                }}>
-                  {banner.description}
-                </p>
-              )}
-              
-              <button style={{
-                background: '#fff',
-                color: banner.badgeColor,
-                border: 'none',
-                padding: '12px 24px',
-                borderRadius: 25,
-                fontSize: 16,
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'transform 0.2s',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
-              }}
-              onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
-              onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}>
-                {banner.buttonText}
-              </button>
-            </div>
-          ))}
-
-          {/* Indicadores de navegación */}
-          <div style={{
-            position: 'absolute',
-            bottom: 20,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            gap: 10,
-            zIndex: 3
+          <h1 style={{ 
+            fontSize: 'clamp(24px, 5vw, 32px)', 
+            margin: '0 0 clamp(20px, 4vw, 32px) 0',
+            color: '#333',
+            textAlign: 'center',
+            fontWeight: 700
           }}>
-            {banners.map((_, index) => (
-              <div
-                key={index}
-                onClick={() => goToBanner(index)}
-                style={{
-                  width: 12,
-                  height: 12,
-                  borderRadius: '50%',
-                  background: '#fff',
-                  cursor: 'pointer',
-                  opacity: currentBanner === index ? 1 : 0.5,
-                  transition: 'opacity 0.3s'
-                }}
-              />
+            Catálogo de Productos
+          </h1>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: 'clamp(16px, 3vw, 24px)',
+            width: '100%',
+            maxWidth: '100%',
+            boxSizing: 'border-box',
+            padding: '0 clamp(8px, 1.5vw, 16px)'
+          }}>
+            {productos.map(producto => (
+              <div key={producto.id} style={{
+                border: '1px solid #ccc',
+                borderRadius: 12,
+                width: '100%',
+                maxWidth: '100%',
+                padding: 'clamp(16px, 3vw, 24px)',
+                background: '#fff',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+                cursor: 'pointer',
+                boxSizing: 'border-box',
+                overflow: 'hidden'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-4px)';
+                e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.07)';
+              }}>
+                <img 
+                  src={producto.imagen} 
+                  alt={producto.nombre} 
+                  style={{ 
+                    width: '100%', 
+                    height: 'clamp(150px, 25vw, 200px)', 
+                    objectFit: 'contain', 
+                    borderRadius: 8, 
+                    background: '#f9f9f9', 
+                    padding: 8,
+                    marginBottom: 'clamp(12px, 2vw, 16px)',
+                    boxSizing: 'border-box'
+                  }} 
+                />
+                <h2 style={{ 
+                  fontSize: 'clamp(16px, 3vw, 20px)', 
+                  margin: '0 0 clamp(8px, 1.5vw, 12px) 0',
+                  fontWeight: 600,
+                  color: '#333',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word'
+                }}>
+                  {producto.nombre}
+                </h2>
+                <p style={{ 
+                  fontSize: 'clamp(14px, 2.5vw, 16px)', 
+                  color: '#666',
+                  margin: '0 0 clamp(8px, 1.5vw, 12px) 0',
+                  lineHeight: 1.4,
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word'
+                }}>
+                  {producto.descripcion}
+                </p>
+                <p style={{ 
+                  fontSize: 'clamp(14px, 2.5vw, 16px)', 
+                  margin: '0 0 clamp(8px, 1.5vw, 12px) 0',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word'
+                }}>
+                  <b>Marca:</b> {producto.marca}
+                </p>
+                <p style={{ 
+                  fontSize: 'clamp(16px, 3vw, 18px)', 
+                  fontWeight: 700,
+                  color: '#1976d2',
+                  margin: '0 0 clamp(12px, 2vw, 16px) 0'
+                }}>
+                  <b>Precio:</b> ${producto.precio.toLocaleString('es-AR')}
+                </p>
+                <Link 
+                  to={`/producto/${producto.id}`} 
+                  style={{ 
+                    display: 'inline-block', 
+                    width: '100%',
+                    padding: 'clamp(10px, 2vw, 14px) clamp(16px, 3vw, 24px)', 
+                    background: '#1976d2', 
+                    color: '#fff', 
+                    borderRadius: 8, 
+                    textDecoration: 'none',
+                    textAlign: 'center',
+                    fontWeight: 600,
+                    fontSize: 'clamp(14px, 2.5vw, 16px)',
+                    transition: 'background-color 0.2s',
+                    boxSizing: 'border-box'
+                  }}
+                  onMouseEnter={(e) => e.target.style.background = '#1565c0'}
+                  onMouseLeave={(e) => e.target.style.background = '#1976d2'}>
+                  Comprar
+                </Link>
+              </div>
             ))}
           </div>
-        </div>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: 'clamp(16px, 3vw, 32px)',
-          maxWidth: '100%',
-          padding: '0 clamp(16px, 3vw, 32px)'
-        }}>
-          {productos.map(producto => (
-            <div key={producto.id} style={{
-              border: '1px solid #ccc',
-              borderRadius: 12,
-              width: '100%',
-              padding: 'clamp(16px, 3vw, 24px)',
-              background: '#fff',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
-              transition: 'transform 0.2s, box-shadow 0.2s',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-4px)';
-              e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.07)';
-            }}>
-              <img 
-                src={producto.imagen} 
-                alt={producto.nombre} 
-                style={{ 
-                  width: '100%', 
-                  height: 'clamp(150px, 25vw, 200px)', 
-                  objectFit: 'contain', 
-                  borderRadius: 8, 
-                  background: '#f9f9f9', 
-                  padding: 8,
-                  marginBottom: 'clamp(12px, 2vw, 16px)'
-                }} 
-              />
-              <h2 style={{ 
-                fontSize: 'clamp(16px, 3vw, 20px)', 
-                margin: '0 0 clamp(8px, 1.5vw, 12px) 0',
-                fontWeight: 600,
-                color: '#333'
-              }}>
-                {producto.nombre}
-              </h2>
-              <p style={{ 
-                fontSize: 'clamp(14px, 2.5vw, 16px)', 
-                color: '#666',
-                margin: '0 0 clamp(8px, 1.5vw, 12px) 0',
-                lineHeight: 1.4
-              }}>
-                {producto.descripcion}
-              </p>
-              <p style={{ 
-                fontSize: 'clamp(14px, 2.5vw, 16px)', 
-                margin: '0 0 clamp(8px, 1.5vw, 12px) 0'
-              }}>
-                <b>Marca:</b> {producto.marca}
-              </p>
-              <p style={{ 
-                fontSize: 'clamp(16px, 3vw, 18px)', 
-                fontWeight: 700,
-                color: '#1976d2',
-                margin: '0 0 clamp(12px, 2vw, 16px) 0'
-              }}>
-                <b>Precio:</b> ${producto.precio.toLocaleString('es-AR')}
-              </p>
-              <Link 
-                to={`/producto/${producto.id}`} 
-                style={{ 
-                  display: 'inline-block', 
-                  width: '100%',
-                  padding: 'clamp(10px, 2vw, 14px) clamp(16px, 3vw, 24px)', 
-                  background: '#1976d2', 
-                  color: '#fff', 
-                  borderRadius: 8, 
-                  textDecoration: 'none',
-                  textAlign: 'center',
-                  fontWeight: 600,
-                  fontSize: 'clamp(14px, 2.5vw, 16px)',
-                  transition: 'background-color 0.2s'
-                }}
-                onMouseEnter={(e) => e.target.style.background = '#1565c0'}
-                onMouseLeave={(e) => e.target.style.background = '#1976d2'}>
-                Comprar
-              </Link>
-            </div>
-          ))}
         </div>
       </main>
       <Footer />
