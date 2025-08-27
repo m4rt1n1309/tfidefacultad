@@ -2,12 +2,10 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/oscarbarbieri';
+    console.log('MONGODB_URI:', process.env.MONGODB_URI);
+    const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://ncrmr250253:dSmdxISCrJ7gpDC6@cluster0.7on3xbd.mongodb.net/oscarbarbieri';
     
-    await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(mongoURI);
     
     console.log('MongoDB conectado exitosamente');
   } catch (error) {

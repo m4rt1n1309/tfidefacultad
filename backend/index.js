@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/database');
@@ -71,5 +71,4 @@ app.get('/veraz/:dni', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Servidor backend escuchando en http://localhost:${PORT}`);
-}); 
-}); 
+});
