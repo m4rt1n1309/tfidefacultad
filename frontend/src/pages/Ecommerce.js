@@ -89,24 +89,30 @@ const Header = () => (
     width: '100%',
     background: '#1976d2',
     color: '#fff',
-    padding: '18px 20px',
+    padding: 'clamp(12px, 2vw, 18px) clamp(16px, 3vw, 20px)',
     marginBottom: 32,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
-    gap: 15,
+    gap: 'clamp(10px, 2vw, 15px)',
     minHeight: 'fit-content',
     overflow: 'visible',
     boxSizing: 'border-box'
   }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: 15, minWidth: 0, flexShrink: 0 }}>
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      gap: 'clamp(10px, 2vw, 15px)', 
+      minWidth: 0, 
+      flexShrink: 0 
+    }}>
       <img 
         src={process.env.PUBLIC_URL + '/oscarbarbieri.jpeg'} 
         alt="Oscar Barbieri" 
         style={{
-          width: 50,
-          height: 50,
+          width: 'clamp(40px, 8vw, 50px)',
+          height: 'clamp(40px, 8vw, 50px)',
           borderRadius: '50%',
           objectFit: 'cover',
           border: '3px solid #fff',
@@ -114,7 +120,7 @@ const Header = () => (
         }}
       />
       <div style={{ 
-        fontSize: 'clamp(18px, 4vw, 24px)', 
+        fontSize: 'clamp(16px, 4vw, 24px)', 
         fontWeight: 700, 
         letterSpacing: 1,
         whiteSpace: 'nowrap'
@@ -125,85 +131,24 @@ const Header = () => (
 
     <div style={{ 
       display: 'flex', 
-      alignItems: 'center', 
-      gap: 'clamp(10px, 2vw, 20px)',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      flex: 1,
-      minWidth: 0
+      alignItems: 'center',
+      gap: 'clamp(8px, 2vw, 12px)',
+      flexWrap: 'wrap'
     }}>
-      <div style={{ position: 'relative', minWidth: 0 }}>
-        <input
-          type="text"
-          placeholder="Buscar productos..."
-          style={{
-            padding: '8px 12px',
-            borderRadius: 20,
-            border: 'none',
-            width: 'clamp(150px, 20vw, 200px)',
-            fontSize: 14
-          }}
-        />
-        <button
-          style={{
-            position: 'absolute',
-            right: 8,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            background: 'none',
-            border: 'none',
-            color: '#666',
-            cursor: 'pointer'
-          }}
-        >
-          🔍
-        </button>
-      </div>
-
-      <nav style={{ 
-        display: 'flex', 
-        gap: 'clamp(8px, 1.5vw, 15px)',
-        flexWrap: 'wrap',
-        alignItems: 'center'
-      }}>
-        <button
-          style={{
-            background: 'none',
-            border: 'none',
-            color: '#fff',
-            fontSize: 'clamp(12px, 2.5vw, 14px)',
-            cursor: 'pointer',
-            padding: '6px 12px',
-            borderRadius: 4,
-            transition: 'background-color 0.2s',
-            whiteSpace: 'nowrap',
-            minWidth: 'fit-content'
-          }}
-          onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255,255,255,0.1)'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-        >
-          Catálogo
-        </button>
-        <button
-          style={{
-            background: 'rgba(255,255,255,0.1)',
-            border: '1px solid #fff',
-            color: '#fff',
-            fontSize: 'clamp(12px, 2.5vw, 14px)',
-            cursor: 'pointer',
-            padding: '8px 16px',
-            borderRadius: 4,
-            transition: 'background-color 0.2s',
-            whiteSpace: 'nowrap',
-            minWidth: 'fit-content',
-            overflow: 'visible'
-          }}
-          onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255,255,255,0.2)'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = 'rgba(255,255,255,0.1)'}
-        >
-          Iniciar Sesión
-        </button>
-      </nav>
+      <Link to="/clientes" style={{
+        color: '#fff',
+        textDecoration: 'none',
+        padding: 'clamp(6px, 1.5vw, 10px) clamp(12px, 2.5vw, 16px)',
+        borderRadius: 6,
+        background: 'rgba(255,255,255,0.1)',
+        fontSize: 'clamp(14px, 2.5vw, 16px)',
+        fontWeight: 500,
+        transition: 'background-color 0.2s'
+      }}
+      onMouseEnter={(e) => e.target.style.background = 'rgba(255,255,255,0.2)'}
+      onMouseLeave={(e) => e.target.style.background = 'rgba(255,255,255,0.1)'}>
+        Gestión de Clientes
+      </Link>
     </div>
   </header>
 );
@@ -461,14 +406,21 @@ const Ecommerce = () => {
       width: '100%'
     }}>
       <Header />
-      <main style={{ flex: 1, padding: '20px', maxWidth: '100%', overflowX: 'hidden' }}>
+      <main style={{ 
+        flex: 1, 
+        padding: 'clamp(16px, 3vw, 20px)', 
+        maxWidth: '100%', 
+        overflowX: 'hidden',
+        boxSizing: 'border-box'
+      }}>
         <h1 style={{
           textAlign: 'center',
-          fontSize: 'clamp(24px, 5vw, 32px)',
+          fontSize: 'clamp(20px, 5vw, 32px)',
           fontWeight: 700,
           color: '#333',
-          marginBottom: 40,
-          marginTop: 0
+          marginBottom: 'clamp(24px, 4vw, 40px)',
+          marginTop: 0,
+          padding: '0 clamp(16px, 3vw, 32px)'
         }}>
           Venta de Electrodomésticos
         </h1>
@@ -628,25 +580,90 @@ const Ecommerce = () => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
           gap: 'clamp(16px, 3vw, 32px)',
-          maxWidth: '100%'
+          maxWidth: '100%',
+          padding: '0 clamp(16px, 3vw, 32px)'
         }}>
           {productos.map(producto => (
             <div key={producto.id} style={{
               border: '1px solid #ccc',
-              borderRadius: 8,
+              borderRadius: 12,
               width: '100%',
-              padding: 16,
+              padding: 'clamp(16px, 3vw, 24px)',
               background: '#fff',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.07)'
+              boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+              transition: 'transform 0.2s, box-shadow 0.2s',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(-4px)';
+              e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.07)';
             }}>
-              <img src={producto.imagen} alt={producto.nombre} style={{ width: '100%', height: 180, objectFit: 'contain', borderRadius: 4, background: '#f9f9f9', padding: 8 }} />
-              <h2 style={{ fontSize: 18 }}>{producto.nombre}</h2>
-              <p>{producto.descripcion}</p>
-              <p><b>Marca:</b> {producto.marca}</p>
-              <p><b>Precio:</b> ${producto.precio.toLocaleString('es-AR')}</p>
-              <Link to={`/producto/${producto.id}`} style={{ display: 'inline-block', marginTop: 10, padding: '8px 16px', background: '#1976d2', color: '#fff', borderRadius: 4, textDecoration: 'none' }}>
+              <img 
+                src={producto.imagen} 
+                alt={producto.nombre} 
+                style={{ 
+                  width: '100%', 
+                  height: 'clamp(150px, 25vw, 200px)', 
+                  objectFit: 'contain', 
+                  borderRadius: 8, 
+                  background: '#f9f9f9', 
+                  padding: 8,
+                  marginBottom: 'clamp(12px, 2vw, 16px)'
+                }} 
+              />
+              <h2 style={{ 
+                fontSize: 'clamp(16px, 3vw, 20px)', 
+                margin: '0 0 clamp(8px, 1.5vw, 12px) 0',
+                fontWeight: 600,
+                color: '#333'
+              }}>
+                {producto.nombre}
+              </h2>
+              <p style={{ 
+                fontSize: 'clamp(14px, 2.5vw, 16px)', 
+                color: '#666',
+                margin: '0 0 clamp(8px, 1.5vw, 12px) 0',
+                lineHeight: 1.4
+              }}>
+                {producto.descripcion}
+              </p>
+              <p style={{ 
+                fontSize: 'clamp(14px, 2.5vw, 16px)', 
+                margin: '0 0 clamp(8px, 1.5vw, 12px) 0'
+              }}>
+                <b>Marca:</b> {producto.marca}
+              </p>
+              <p style={{ 
+                fontSize: 'clamp(16px, 3vw, 18px)', 
+                fontWeight: 700,
+                color: '#1976d2',
+                margin: '0 0 clamp(12px, 2vw, 16px) 0'
+              }}>
+                <b>Precio:</b> ${producto.precio.toLocaleString('es-AR')}
+              </p>
+              <Link 
+                to={`/producto/${producto.id}`} 
+                style={{ 
+                  display: 'inline-block', 
+                  width: '100%',
+                  padding: 'clamp(10px, 2vw, 14px) clamp(16px, 3vw, 24px)', 
+                  background: '#1976d2', 
+                  color: '#fff', 
+                  borderRadius: 8, 
+                  textDecoration: 'none',
+                  textAlign: 'center',
+                  fontWeight: 600,
+                  fontSize: 'clamp(14px, 2.5vw, 16px)',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseEnter={(e) => e.target.style.background = '#1565c0'}
+                onMouseLeave={(e) => e.target.style.background = '#1976d2'}>
                 Comprar
               </Link>
             </div>
