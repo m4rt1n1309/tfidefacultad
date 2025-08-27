@@ -8,7 +8,7 @@ Crea un archivo `.env` en la raíz del backend con:
 ```
 NODE_ENV=development
 PORT=3001
-MONGODB_URI=mongodb://localhost:27017/tfidefacultad
+MONGODB_URI=mongodb://localhost:27017/oscarbarbieri
 ```
 
 ### 2. MongoDB Local
