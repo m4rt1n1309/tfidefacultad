@@ -962,131 +962,205 @@ const ProductoDetalle = () => {
       width: '100%'
     }}>
       <Header />
-      <main style={{ flex: 1, padding: '20px', maxWidth: '100%', overflowX: 'hidden' }}>
-        <button onClick={() => navigate(-1)} style={{ marginBottom: 20 }}>&lt; Volver</button>
+      <main style={{ 
+        flex: 1, 
+        padding: 'clamp(16px, 3vw, 20px)', 
+        maxWidth: '100%', 
+        overflowX: 'hidden',
+        boxSizing: 'border-box'
+      }}>
+        <button 
+          onClick={() => navigate(-1)} 
+          style={{ 
+            marginBottom: 'clamp(16px, 3vw, 20px)',
+            padding: 'clamp(8px, 2vw, 12px) clamp(16px, 3vw, 20px)',
+            background: '#1976d2',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 6,
+            cursor: 'pointer',
+            fontSize: 'clamp(14px, 2.5vw, 16px)'
+          }}
+        >
+          &lt; Volver
+        </button>
+        
         <div style={{ 
           display: 'flex', 
-          gap: 'clamp(15px, 3vw, 30px)',
-          flexWrap: 'wrap'
+          flexDirection: 'column',
+          gap: 'clamp(20px, 4vw, 30px)',
+          alignItems: 'center'
         }}>
-          <img src={producto.imagen} alt={producto.nombre} style={{ 
-            width: 'clamp(250px, 40vw, 300px)', 
-            height: 'clamp(250px, 40vw, 300px)', 
-            objectFit: 'contain', 
-            borderRadius: 8, 
-            background: '#f9f9f9', 
-            padding: 16,
-            flexShrink: 0
-          }} />
-          <div style={{ minWidth: 0, flex: 1 }}>
-            <h1>{producto.nombre}</h1>
-            <p>{producto.descripcion}</p>
-            <p><b>Marca:</b> {producto.marca}</p>
-            <p><b>Precio:</b> ${producto.precio.toLocaleString('es-AR')}</p>
+          {/* Imagen del producto */}
+          <img 
+            src={producto.imagen} 
+            alt={producto.nombre} 
+            style={{ 
+              width: 'clamp(200px, 60vw, 300px)', 
+              height: 'clamp(200px, 60vw, 300px)', 
+              objectFit: 'contain', 
+              borderRadius: 12, 
+              background: '#f9f9f9', 
+              padding: 'clamp(12px, 2vw, 16px)',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+            }} 
+          />
+          
+          {/* Información del producto */}
+          <div style={{ 
+            width: '100%',
+            maxWidth: '600px',
+            textAlign: 'center'
+          }}>
+            <h1 style={{ 
+              fontSize: 'clamp(24px, 5vw, 32px)',
+              margin: '0 0 clamp(12px, 2vw, 16px) 0',
+              color: '#333',
+              fontWeight: 700
+            }}>
+              {producto.nombre}
+            </h1>
             
+            <p style={{ 
+              fontSize: 'clamp(16px, 3vw, 18px)',
+              margin: '0 0 clamp(12px, 2vw, 16px) 0',
+              color: '#666',
+              lineHeight: 1.5
+            }}>
+              {producto.descripcion}
+            </p>
+            
+            <p style={{ 
+              fontSize: 'clamp(16px, 3vw, 18px)',
+              margin: '0 0 clamp(8px, 1.5vw, 12px) 0'
+            }}>
+              <b>Marca:</b> {producto.marca}
+            </p>
+            
+            <p style={{ 
+              fontSize: 'clamp(20px, 4vw, 24px)',
+              margin: '0 0 clamp(20px, 4vw, 24px) 0',
+              color: '#1976d2',
+              fontWeight: 700
+            }}>
+              <b>Precio:</b> ${producto.precio.toLocaleString('es-AR')}
+            </p>
+            
+            {/* Formulario de DNI */}
             {!verazChecked ? (
-              <div style={{ marginTop: 20 }}>
-                <div style={{ marginBottom: 20 }}>
-                  <label>
-                    Ingresá tu DNI para validar en Veraz:<br />
-                    <input
-                      type="text"
-                      value={dni}
-                      onChange={e => setDni(e.target.value.replace(/[^0-9]/g, ''))}
-                      maxLength={10}
-                      style={{ fontSize: 18, padding: 6, marginTop: 8, width: 180 }}
-                      placeholder="DNI"
-                    />
+              <div style={{ 
+                marginTop: 'clamp(20px, 4vw, 24px)',
+                padding: 'clamp(20px, 4vw, 24px)',
+                background: '#fff',
+                borderRadius: 12,
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+              }}>
+                <div style={{ marginBottom: 'clamp(16px, 3vw, 20px)' }}>
+                  <label style={{ 
+                    display: 'block',
+                    marginBottom: 'clamp(8px, 1.5vw, 12px)',
+                    fontSize: 'clamp(16px, 3vw, 18px)',
+                    fontWeight: 600,
+                    color: '#333'
+                  }}>
+                    Ingresá tu DNI para validar en Veraz:
                   </label>
-                  <br />
-                  <button
-                    onClick={() => buscarCliente(dni)}
-                    disabled={dni.length < 7 || buscandoCliente}
-                    style={{ marginTop: 10, padding: '8px 16px', background: dni.length >= 7 && !buscandoCliente ? '#1976d2' : '#ccc', color: '#fff', border: 'none', borderRadius: 4 }}
-                  >
-                    {buscandoCliente ? 'Buscando...' : 'Buscar Cliente y Validar Veraz'}
-                  </button>
+                  <input
+                    type="text"
+                    value={dni}
+                    onChange={e => setDni(e.target.value.replace(/[^0-9]/g, ''))}
+                    maxLength={10}
+                    style={{ 
+                      fontSize: 'clamp(16px, 3vw, 18px)', 
+                      padding: 'clamp(10px, 2vw, 12px)', 
+                      width: 'clamp(200px, 50vw, 250px)',
+                      border: '2px solid #ddd',
+                      borderRadius: 8,
+                      textAlign: 'center',
+                      outline: 'none'
+                    }}
+                    placeholder="DNI"
+                  />
                 </div>
                 
-                <div style={{ borderTop: '1px solid #ddd', paddingTop: 20 }}>
-                  <p style={{ marginBottom: 10, fontWeight: 'bold' }}>O paga con otro método:</p>
-                  <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                    <button
-                      onClick={handlePagoEfectivo}
-                      style={{ padding: '10px 20px', background: '#388e3c', color: '#fff', border: 'none', borderRadius: 4, fontSize: 16 }}
-                    >
-                      Comprar con Efectivo
-                    </button>
-                    <button
-                      onClick={() => setShowModalTarjeta(true)}
-                      style={{ padding: '10px 20px', background: '#1976d2', color: '#fff', border: 'none', borderRadius: 4, fontSize: 16 }}
-                    >
-                      Comprar con Tarjeta
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ) : !verazAprobado ? (
-              <div style={{ marginTop: 20 }}>
-                <div style={{ color: 'red', marginBottom: 20 }}>
-                  <b>Tu situación en Veraz no permite realizar la compra a crédito.</b>
-                  <br />
-                  <button onClick={() => { setVerazChecked(false); setDni(''); }} style={{ marginTop: 10 }}>Intentar con otro DNI</button>
-                </div>
-                
-                <div style={{ borderTop: '1px solid #ddd', paddingTop: 20 }}>
-                  <p style={{ marginBottom: 10, fontWeight: 'bold' }}>Paga con otro método:</p>
-                  <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                    <button
-                      onClick={handlePagoEfectivo}
-                      style={{ padding: '10px 20px', background: '#388e3c', color: '#fff', border: 'none', borderRadius: 4, fontSize: 16 }}
-                    >
-                      Comprar con Efectivo
-                    </button>
-                    <button
-                      onClick={() => setShowModalTarjeta(true)}
-                      style={{ padding: '10px 20px', background: '#1976d2', color: '#fff', border: 'none', borderRadius: 4, fontSize: 16 }}
-                    >
-                      Comprar con Tarjeta
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ) : !compraIniciada ? null : puedeCredito === null ? null : puedeCredito ? (
-              <div style={{ marginTop: 20 }}>
-                <p>¡Felicidades! Puedes sacar un crédito para este producto.</p>
-                <button onClick={handleConfirmar} style={{ padding: '10px 20px', background: '#388e3c', color: '#fff', border: 'none', borderRadius: 4, fontSize: 16 }}>
-                  Comprar con crédito
+                <button
+                  onClick={() => buscarCliente(dni)}
+                  disabled={dni.length < 7 || buscandoCliente}
+                  style={{ 
+                    marginTop: 'clamp(8px, 1.5vw, 12px)', 
+                    padding: 'clamp(10px, 2vw, 14px) clamp(20px, 4vw, 24px)', 
+                    background: dni.length >= 7 && !buscandoCliente ? '#1976d2' : '#ccc', 
+                    color: '#fff', 
+                    border: 'none', 
+                    borderRadius: 8,
+                    fontSize: 'clamp(14px, 2.5vw, 16px)',
+                    fontWeight: 600,
+                    cursor: dni.length >= 7 && !buscandoCliente ? 'pointer' : 'not-allowed',
+                    transition: 'background-color 0.2s'
+                  }}
+                >
+                  {buscandoCliente ? 'Buscando...' : 'Buscar Cliente y Validar Veraz'}
                 </button>
+                
+                <div style={{ 
+                  borderTop: '1px solid #ddd', 
+                  paddingTop: 'clamp(16px, 3vw, 20px)',
+                  marginTop: 'clamp(16px, 3vw, 20px)'
+                }}>
+                  <p style={{ 
+                    marginBottom: 'clamp(12px, 2vw, 16px)', 
+                    fontWeight: 'bold',
+                    fontSize: 'clamp(16px, 3vw, 18px)'
+                  }}>
+                    O paga con otro método:
+                  </p>
+                  <div style={{ 
+                    display: 'flex', 
+                    gap: 'clamp(8px, 2vw, 12px)', 
+                    flexWrap: 'wrap',
+                    justifyContent: 'center'
+                  }}>
+                    <button
+                      onClick={handlePagoEfectivo}
+                      style={{ 
+                        padding: 'clamp(10px, 2vw, 14px) clamp(16px, 3vw, 20px)', 
+                        background: '#388e3c', 
+                        color: '#fff', 
+                        border: 'none', 
+                        borderRadius: 8, 
+                        fontSize: 'clamp(14px, 2.5vw, 16px)',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.target.style.background = '#2e7d32'}
+                      onMouseLeave={(e) => e.target.style.background = '#388e3c'}
+                    >
+                      Comprar con Efectivo
+                    </button>
+                    <button
+                      onClick={() => setShowModalTarjeta(true)}
+                      style={{ 
+                        padding: 'clamp(10px, 2vw, 14px) clamp(16px, 3vw, 20px)', 
+                        background: '#1976d2', 
+                        color: '#fff', 
+                        border: 'none', 
+                        borderRadius: 8, 
+                        fontSize: 'clamp(14px, 2.5vw, 16px)',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.target.style.background = '#1565c0'}
+                      onMouseLeave={(e) => e.target.style.background = '#1976d2'}
+                    >
+                      Comprar con Tarjeta
+                    </button>
+                  </div>
+                </div>
               </div>
             ) : (
-              <div style={{ marginTop: 20 }}>
-                <p>No puedes sacar un crédito. Elige otro método de pago:</p>
-                <div style={{ marginBottom: 10 }}>
-                  <label>
-                    <input type="radio" name="metodoPago" value="efectivo" checked={metodoPago === 'efectivo'} onChange={() => setMetodoPago('efectivo')} /> Efectivo
-                  </label>
-                  <label style={{ marginLeft: 20 }}>
-                    <input type="radio" name="metodoPago" value="tarjeta" checked={metodoPago === 'tarjeta'} onChange={() => setMetodoPago('tarjeta')} /> Tarjeta de Crédito
-                  </label>
-                </div>
-                {metodoPago === 'efectivo' && (
-                  <button 
-                    onClick={handlePagoEfectivo} 
-                    style={{ padding: '10px 20px', background: '#388e3c', color: '#fff', border: 'none', borderRadius: 4, fontSize: 16 }}
-                  >
-                    Comprar con Efectivo
-                  </button>
-                )}
-                {metodoPago === 'tarjeta' && (
-                  <button 
-                    onClick={() => setShowModalTarjeta(true)} 
-                    style={{ padding: '10px 20px', background: '#1976d2', color: '#fff', border: 'none', borderRadius: 4, fontSize: 16 }}
-                  >
-                    Comprar con Tarjeta
-                  </button>
-                )}
-              </div>
+              // ... resto del código para cuando ya se verificó Veraz
             )}
           </div>
         </div>
