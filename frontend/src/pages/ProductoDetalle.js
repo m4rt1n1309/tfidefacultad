@@ -1159,8 +1159,210 @@ const ProductoDetalle = () => {
                   </div>
                 </div>
               </div>
+            ) : !verazAprobado ? (
+              <div style={{ 
+                marginTop: 'clamp(20px, 4vw, 24px)',
+                padding: 'clamp(20px, 4vw, 24px)',
+                background: '#fff',
+                borderRadius: 12,
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+              }}>
+                <div style={{ color: 'red', marginBottom: 'clamp(16px, 3vw, 20px)' }}>
+                  <b>Tu situación en Veraz no permite realizar la compra a crédito.</b>
+                  <br />
+                  <button 
+                    onClick={() => { setVerazChecked(false); setDni(''); }} 
+                    style={{ 
+                      marginTop: 'clamp(8px, 1.5vw, 12px)',
+                      padding: 'clamp(8px, 1.5vw, 12px) clamp(16px, 3vw, 20px)',
+                      background: '#f44336',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: 6,
+                      cursor: 'pointer',
+                      fontSize: 'clamp(14px, 2.5vw, 16px)'
+                    }}
+                  >
+                    Intentar con otro DNI
+                  </button>
+                </div>
+                
+                <div style={{ 
+                  borderTop: '1px solid #ddd', 
+                  paddingTop: 'clamp(16px, 3vw, 20px)',
+                  marginTop: 'clamp(16px, 3vw, 20px)'
+                }}>
+                  <p style={{ 
+                    marginBottom: 'clamp(12px, 2vw, 16px)', 
+                    fontWeight: 'bold',
+                    fontSize: 'clamp(16px, 3vw, 18px)'
+                  }}>
+                    Paga con otro método:
+                  </p>
+                  <div style={{ 
+                    display: 'flex', 
+                    gap: 'clamp(8px, 2vw, 12px)', 
+                    flexWrap: 'wrap',
+                    justifyContent: 'center'
+                  }}>
+                    <button
+                      onClick={handlePagoEfectivo}
+                      style={{ 
+                        padding: 'clamp(10px, 2vw, 14px) clamp(16px, 3vw, 20px)', 
+                        background: '#388e3c', 
+                        color: '#fff', 
+                        border: 'none', 
+                        borderRadius: 8, 
+                        fontSize: 'clamp(14px, 2.5vw, 16px)',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.target.style.background = '#2e7d32'}
+                      onMouseLeave={(e) => e.target.style.background = '#388e3c'}
+                    >
+                      Comprar con Efectivo
+                    </button>
+                    <button
+                      onClick={() => setShowModalTarjeta(true)}
+                      style={{ 
+                        padding: 'clamp(10px, 2vw, 14px) clamp(16px, 3vw, 20px)', 
+                        background: '#1976d2', 
+                        color: '#fff', 
+                        border: 'none', 
+                        borderRadius: 8, 
+                        fontSize: 'clamp(14px, 2.5vw, 16px)',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s'
+                      }}
+                      onMouseEnter={(e) => e.target.style.background = '#1565c0'}
+                      onMouseLeave={(e) => e.target.style.background = '#1976d2'}
+                    >
+                      Comprar con Tarjeta
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : !compraIniciada ? null : puedeCredito === null ? null : puedeCredito ? (
+              <div style={{ 
+                marginTop: 'clamp(20px, 4vw, 24px)',
+                padding: 'clamp(20px, 4vw, 24px)',
+                background: '#fff',
+                borderRadius: 12,
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                textAlign: 'center'
+              }}>
+                <p style={{ 
+                  fontSize: 'clamp(16px, 3vw, 18px)',
+                  marginBottom: 'clamp(16px, 3vw, 20px)',
+                  color: '#388e3c',
+                  fontWeight: 600
+                }}>
+                  ¡Felicidades! Puedes sacar un crédito para este producto.
+                </p>
+                <button 
+                  onClick={handleConfirmar} 
+                  style={{ 
+                    padding: 'clamp(12px, 2.5vw, 16px) clamp(24px, 4vw, 32px)', 
+                    background: '#388e3c', 
+                    color: '#fff', 
+                    border: 'none', 
+                    borderRadius: 8, 
+                    fontSize: 'clamp(16px, 3vw, 18px)',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.target.style.background = '#2e7d32'}
+                  onMouseLeave={(e) => e.target.style.background = '#388e3c'}
+                >
+                  Comprar con crédito
+                </button>
+              </div>
             ) : (
-              // ... resto del código para cuando ya se verificó Veraz
+              <div style={{ 
+                marginTop: 'clamp(20px, 4vw, 24px)',
+                padding: 'clamp(20px, 4vw, 24px)',
+                background: '#fff',
+                borderRadius: 12,
+                boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+              }}>
+                <p style={{ 
+                  fontSize: 'clamp(16px, 3vw, 18px)',
+                  marginBottom: 'clamp(16px, 3vw, 20px)',
+                  color: '#f44336'
+                }}>
+                  No puedes sacar un crédito. Elige otro método de pago:
+                </p>
+                <div style={{ marginBottom: 'clamp(16px, 3vw, 20px)' }}>
+                  <label style={{ 
+                    display: 'block',
+                    marginBottom: 'clamp(8px, 1.5vw, 12px)',
+                    fontSize: 'clamp(14px, 2.5vw, 16px)'
+                  }}>
+                    <input 
+                      type="radio" 
+                      name="metodoPago" 
+                      value="efectivo" 
+                      checked={metodoPago === 'efectivo'} 
+                      onChange={() => setMetodoPago('efectivo')} 
+                    /> Efectivo
+                  </label>
+                  <label style={{ 
+                    display: 'block',
+                    fontSize: 'clamp(14px, 2.5vw, 16px)'
+                  }}>
+                    <input 
+                      type="radio" 
+                      name="metodoPago" 
+                      value="tarjeta" 
+                      checked={metodoPago === 'tarjeta'} 
+                      onChange={() => setMetodoPago('tarjeta')} 
+                    /> Tarjeta de Crédito
+                  </label>
+                </div>
+                {metodoPago === 'efectivo' && (
+                  <button 
+                    onClick={handlePagoEfectivo} 
+                    style={{ 
+                      padding: 'clamp(10px, 2vw, 14px) clamp(16px, 3vw, 20px)', 
+                      background: '#388e3c', 
+                      color: '#fff', 
+                      border: 'none', 
+                      borderRadius: 8, 
+                      fontSize: 'clamp(14px, 2.5vw, 16px)',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'background-color 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.target.style.background = '#2e7d32'}
+                    onMouseLeave={(e) => e.target.style.background = '#388e3c'}
+                  >
+                    Comprar con Efectivo
+                  </button>
+                )}
+                {metodoPago === 'tarjeta' && (
+                  <button 
+                    onClick={() => setShowModalTarjeta(true)} 
+                    style={{ 
+                      padding: 'clamp(10px, 2vw, 14px) clamp(16px, 3vw, 20px)', 
+                      background: '#1976d2', 
+                      color: '#fff', 
+                      border: 'none', 
+                      borderRadius: 8, 
+                      fontSize: 'clamp(14px, 2.5vw, 16px)',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'background-color 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.target.style.background = '#1565c0'}
+                    onMouseLeave={(e) => e.target.style.background = '#1976d2'}
+                  >
+                    Comprar con Tarjeta
+                  </button>
+                )}
+              </div>
             )}
           </div>
         </div>
