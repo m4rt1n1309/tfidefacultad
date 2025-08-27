@@ -12,7 +12,7 @@ connectDB();
 
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://tu-sitio.netlify.app', 'http://localhost:3000'] 
+    ? ['https://tu-sitio.netlify.app', 'https://*.netlify.app', 'http://localhost:3000'] 
     : 'http://localhost:3000',
   credentials: true
 }));

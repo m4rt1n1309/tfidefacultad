@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://tfide-backend.onrender.com' 
+  : 'http://localhost:3001';
 
 function Clientes() {
   const [dni, setDni] = useState('');

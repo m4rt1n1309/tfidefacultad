@@ -27,11 +27,14 @@ npm start
 ## Deploy
 
 ### Railway (Recomendado)
-1. Conecta tu repositorio a Railway
-2. Configura las variables de entorno:
-   - `MONGODB_URI`: URL de tu cluster de MongoDB Atlas
-   - `NODE_ENV`: production
-3. Railway detectará automáticamente el comando de inicio
+1. Ve a [Railway.app](https://railway.app) y crea una cuenta
+2. Haz clic en "New Project" → "Deploy from GitHub repo"
+3. Conecta tu repositorio: `m4rt1n1309/tfidefacultad`
+4. Railway detectará automáticamente el directorio `backend`
+5. Configura las variables de entorno:
+   - `MONGODB_URI`: `mongodb+srv://ncrmr250253:dSmdxISCrJ7gpDC6@cluster0.7on3xbd.mongodb.net/oscarbarbieri`
+   - `NODE_ENV`: `production`
+6. Railway usará automáticamente `npm start` como comando de inicio
 
 ### MongoDB Atlas
 Para producción, usa MongoDB Atlas:
