@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-const API_URL = process.env.NODE_ENV === 'production'
-  ? 'https://tfide-backend.onrender.com'
-  : 'http://localhost:3001';
+const API_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? 'https://tfide-backend.onrender.com' : 'http://localhost:3001');
 
 export default function Credito() {
   const [user, setUser] = useState(null);

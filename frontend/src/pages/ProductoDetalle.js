@@ -549,13 +549,14 @@ const ProductoDetalle = () => {
   const buscarCliente = async (dni) => {
     setBuscandoCliente(true);
     try {
-      const response = await fetch(`${process.env.NODE_ENV === 'production' ? 'https://tfide-backend.onrender.com' : 'http://localhost:3001'}/clientes/${dni}`);
+      const base = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? 'https://tfide-backend.onrender.com' : 'http://localhost:3001');
+      const response = await fetch(`${base}/clientes/${dni}`);
       if (response.ok) {
         const cliente = await response.json();
         setClienteEncontrado(cliente);
         setVerazChecked(true);
         // Proceder con verificación de Veraz
-        const verazResponse = await fetch(`${process.env.NODE_ENV === 'production' ? 'https://tfide-backend.onrender.com' : 'http://localhost:3001'}/veraz/${dni}`);
+        const verazResponse = await fetch(`${base}/veraz/${dni}`);
         if (verazResponse.ok) {
           const verazData = await verazResponse.json();
           setVerazAprobado(verazData.estado === 'APROBADO');
@@ -598,7 +599,7 @@ const ProductoDetalle = () => {
 
   const agregarCliente = async (datosCliente) => {
     try {
-      const response = await fetch(`${process.env.NODE_ENV === 'production' ? 'https://tfide-backend.onrender.com' : 'http://localhost:3001'}/clientes`, {
+      const response = await fetch(`${base}/clientes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -617,7 +618,7 @@ const ProductoDetalle = () => {
           confirmButtonText: 'Continuar'
         });
         // Proceder con verificación de Veraz
-        const verazResponse = await fetch(`${process.env.NODE_ENV === 'production' ? 'https://tfide-backend.onrender.com' : 'http://localhost:3001'}/veraz/${datosCliente.dni}`);
+        const verazResponse = await fetch(`${base}/veraz/${datosCliente.dni}`);
         if (verazResponse.ok) {
           const verazData = await verazResponse.json();
           setVerazAprobado(verazData.estado === 'APROBADO');

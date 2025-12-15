@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 
-const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://tfide-backend.onrender.com' 
-  : 'http://localhost:3001';
+const API_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? 'https://tfide-backend.onrender.com' : 'http://localhost:3001');
 
 function Clientes() {
   const [dni, setDni] = useState('');

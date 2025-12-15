@@ -10,7 +10,7 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Enviar nombre, dni, email y password al backend (/clientes)
-    fetch('http://localhost:3001/clientes', {
+    fetch((process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? 'https://tfide-backend.onrender.com' : 'http://localhost:3001')) + '/clientes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre, dni, email, password })
