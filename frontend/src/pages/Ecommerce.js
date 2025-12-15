@@ -1,328 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const productos = [
-  {
-    id: 1,
-    nombre: 'Heladera Samsung',
-    descripcion: 'Heladera No Frost 320L, eficiencia A+',
-    precio: 1200000,
-    marca: 'Samsung',
-    imagen: process.env.PUBLIC_URL + '/heladera.jpg'
-  },
-  {
-    id: 2,
-    nombre: 'Lavarropas LG',
-    descripcion: 'Lavarropas automático 8kg, carga frontal',
-    precio: 560000,
-    marca: 'LG',
-    imagen: process.env.PUBLIC_URL + '/lavarropas.jpg'
-  },
-  {
-    id: 3,
-    nombre: 'Microondas BGH',
-    descripcion: 'Microondas 20L, digital, 700W',
-    precio: 215000,
-    marca: 'BGH',
-    imagen: process.env.PUBLIC_URL + '/microondas.jpg'
-  },
-  {
-    id: 4,
-    nombre: 'Aire Acondicionado Philco',
-    descripcion: 'Split frío/calor 3000W',
-    precio: 780000,
-    marca: 'Philco',
-    imagen: process.env.PUBLIC_URL + '/aireacondicionado.jpg'
-  },
-  {
-    id: 5,
-    nombre: 'Televisor Samsung 50"',
-    descripcion: 'Smart TV 4K UHD',
-    precio: 950000,
-    marca: 'Samsung',
-    imagen: process.env.PUBLIC_URL + '/televisor.jpg'
-  },
-  {
-    id: 6,
-    nombre: 'Cocina Longvie',
-    descripcion: 'Cocina a gas 56cm, 4 hornallas',
-    precio: 350000,
-    marca: 'Longvie',
-    imagen: process.env.PUBLIC_URL + '/cocina.jpg'
-  },
-  {
-    id: 7,
-    nombre: 'Licuadora Philips',
-    descripcion: 'Licuadora 600W, vaso de vidrio',
-    precio: 120000,
-    marca: 'Philips',
-    imagen: process.env.PUBLIC_URL + '/licuadora.jpg'
-  },
-  {
-    id: 8,
-    nombre: 'Aspiradora Atma',
-    descripcion: 'Aspiradora sin bolsa 1600W',
-    precio: 180000,
-    marca: 'Atma',
-    imagen: process.env.PUBLIC_URL + '/aspiradora.jpg'
-  },
-  {
-    id: 9,
-    nombre: 'Plancha Philips',
-    descripcion: 'Plancha a vapor 2400W',
-    precio: 85000,
-    marca: 'Philips',
-    imagen: process.env.PUBLIC_URL + '/plancha.jpg'
-  },
-  {
-    id: 10,
-    nombre: 'Cafetera Oster',
-    descripcion: 'Cafetera automática 12 tazas',
-    precio: 75000,
-    marca: 'Oster',
-    imagen: process.env.PUBLIC_URL + '/cafetera.jpeg'
-  }
+  { id: 1, nombre: 'Heladera Samsung', descripcion: 'Heladera No Frost 320L, eficiencia A+', precio: 1200000, marca: 'Samsung', imagen: process.env.PUBLIC_URL + '/heladera.jpg' },
+  { id: 2, nombre: 'Lavarropas LG', descripcion: 'Lavarropas automático 8kg, carga frontal', precio: 560000, marca: 'LG', imagen: process.env.PUBLIC_URL + '/lavarropas.jpg' },
+  { id: 3, nombre: 'Microondas BGH', descripcion: 'Microondas 20L, digital, 700W', precio: 215000, marca: 'BGH', imagen: process.env.PUBLIC_URL + '/microondas.jpg' },
+  { id: 4, nombre: 'Aire Acondicionado Philco', descripcion: 'Split frío/calor 3000W', precio: 780000, marca: 'Philco', imagen: process.env.PUBLIC_URL + '/aireacondicionado.jpg' },
+  { id: 5, nombre: 'Televisor Samsung 50"', descripcion: 'Smart TV 4K UHD', precio: 950000, marca: 'Samsung', imagen: process.env.PUBLIC_URL + '/televisor.jpg' },
+  { id: 6, nombre: 'Cocina Longvie', descripcion: 'Cocina a gas 56cm, 4 hornallas', precio: 350000, marca: 'Longvie', imagen: process.env.PUBLIC_URL + '/cocina.jpg' },
+  { id: 7, nombre: 'Licuadora Philips', descripcion: 'Licuadora 600W, vaso de vidrio', precio: 120000, marca: 'Philips', imagen: process.env.PUBLIC_URL + '/licuadora.jpg' },
+  { id: 8, nombre: 'Aspiradora Atma', descripcion: 'Aspiradora sin bolsa 1600W', precio: 180000, marca: 'Atma', imagen: process.env.PUBLIC_URL + '/aspiradora.jpg' },
+  { id: 9, nombre: 'Plancha Philips', descripcion: 'Plancha a vapor 2400W', precio: 85000, marca: 'Philips', imagen: process.env.PUBLIC_URL + '/plancha.jpg' },
+  { id: 10, nombre: 'Cafetera Oster', descripcion: 'Cafetera automática 12 tazas', precio: 75000, marca: 'Oster', imagen: process.env.PUBLIC_URL + '/cafetera.jpeg' }
 ];
 
-const Header = () => (
-  <header style={{
-    width: '100%',
-    background: '#1976d2',
-    color: '#fff',
-    padding: 'clamp(12px, 2vw, 18px) clamp(16px, 3vw, 20px)',
-    marginBottom: 32,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    gap: 'clamp(10px, 2vw, 15px)',
-    minHeight: 'fit-content',
-    overflow: 'visible',
-    boxSizing: 'border-box'
-  }}>
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
-      gap: 'clamp(10px, 2vw, 15px)', 
-      minWidth: 0, 
-      flexShrink: 0 
-    }}>
-      <img 
-        src={process.env.PUBLIC_URL + '/oscarbarbieri.jpeg'} 
-        alt="Oscar Barbieri" 
-        style={{
-          width: 'clamp(40px, 8vw, 50px)',
-          height: 'clamp(40px, 8vw, 50px)',
-          borderRadius: '50%',
-          objectFit: 'cover',
-          border: '3px solid #fff',
-          flexShrink: 0
-        }}
-      />
-      <div style={{ 
-        fontSize: 'clamp(16px, 4vw, 24px)', 
-        fontWeight: 700, 
-        letterSpacing: 1,
-        whiteSpace: 'nowrap'
-      }}>
-        Oscar Barbieri
-      </div>
-    </div>
 
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center',
-      gap: 'clamp(8px, 2vw, 12px)',
-      flexWrap: 'wrap'
-    }}>
-      <Link to="/clientes" style={{
-        color: '#fff',
-        textDecoration: 'none',
-        padding: 'clamp(6px, 1.5vw, 10px) clamp(12px, 2.5vw, 16px)',
-        borderRadius: 6,
-        background: 'rgba(255,255,255,0.1)',
-        fontSize: 'clamp(14px, 2.5vw, 16px)',
-        fontWeight: 500,
-        transition: 'background-color 0.2s'
-      }}
-      onMouseEnter={(e) => e.target.style.background = 'rgba(255,255,255,0.2)'}
-      onMouseLeave={(e) => e.target.style.background = 'rgba(255,255,255,0.1)'}>
-        Gestión de Clientes
-      </Link>
-    </div>
-  </header>
-);
-
-const Footer = () => (
-  <footer style={{
-    width: '100%',
-    background: '#222',
-    color: '#fff',
-    padding: '40px 0 20px 0',
-    marginTop: 40,
-    fontSize: 14
-  }}>
-    <div style={{
-      maxWidth: 1200,
-      margin: '0 auto',
-      padding: '0 20px',
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-      gap: 30
-    }}>
-      {/* Información de Contacto */}
-      <div>
-        <h3 style={{ marginTop: 0, marginBottom: 15, color: '#1976d2' }}>Contacto</h3>
-        <p style={{ margin: '8px 0' }}>📞 (011) 1234-5678</p>
-        <p style={{ margin: '8px 0' }}>📧 info@oscarbarbieri.com</p>
-        <p style={{ margin: '8px 0' }}>📍 Av. Corrientes 1234, CABA</p>
-        <p style={{ margin: '8px 0' }}>🕒 Lun-Vie: 9:00-18:00</p>
-      </div>
-
-      {/* Enlaces Útiles */}
-      <div>
-        <h3 style={{ marginTop: 0, marginBottom: 15, color: '#1976d2' }}>Enlaces Útiles</h3>
-        <p style={{ margin: '8px 0', cursor: 'pointer' }}>🏠 Inicio</p>
-        <p style={{ margin: '8px 0', cursor: 'pointer' }}>📋 Catálogo</p>
-        <p style={{ margin: '8px 0', cursor: 'pointer' }}>❓ Preguntas Frecuentes</p>
-        <p style={{ margin: '8px 0', cursor: 'pointer' }}>📞 Soporte Técnico</p>
-        <p style={{ margin: '8px 0', cursor: 'pointer' }}>📋 Términos y Condiciones</p>
-      </div>
-
-      {/* Redes Sociales */}
-      <div>
-        <h3 style={{ marginTop: 0, marginBottom: 15, color: '#1976d2' }}>Síguenos</h3>
-        <div style={{ display: 'flex', gap: 15, marginBottom: 15 }}>
-          <button style={{
-            background: '#1877f2',
-            border: 'none',
-            color: '#fff',
-            padding: '10px 15px',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            fontSize: 16,
-            width: 40,
-            height: 40,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            📘
-          </button>
-          <button style={{
-            background: '#1da1f2',
-            border: 'none',
-            color: '#fff',
-            padding: '10px 15px',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            fontSize: 16,
-            width: 40,
-            height: 40,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            🐦
-          </button>
-          <button style={{
-            background: '#e4405f',
-            border: 'none',
-            color: '#fff',
-            padding: '10px 15px',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            fontSize: 16,
-            width: 40,
-            height: 40,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            📷
-          </button>
-          <button style={{
-            background: '#0077b5',
-            border: 'none',
-            color: '#fff',
-            padding: '10px 15px',
-            borderRadius: '50%',
-            cursor: 'pointer',
-            fontSize: 16,
-            width: 40,
-            height: 40,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            💼
-          </button>
-        </div>
-        <p style={{ margin: '8px 0', fontSize: 12, opacity: 0.8 }}>
-          Facebook, Twitter, Instagram, LinkedIn
-        </p>
-      </div>
-
-      {/* Newsletter */}
-      <div>
-        <h3 style={{ marginTop: 0, marginBottom: 15, color: '#1976d2' }}>Newsletter</h3>
-        <p style={{ marginBottom: 10, fontSize: 12, opacity: 0.8 }}>
-          Suscríbete para recibir ofertas especiales
-        </p>
-        <div style={{ display: 'flex', gap: 10 }}>
-          <input
-            type="email"
-            placeholder="Tu email"
-            style={{
-              padding: '8px 12px',
-              borderRadius: 4,
-              border: 'none',
-              flex: 1,
-              fontSize: 12
-            }}
-          />
-          <button style={{
-            background: '#1976d2',
-            border: 'none',
-            color: '#fff',
-            padding: '8px 16px',
-            borderRadius: 4,
-            cursor: 'pointer',
-            fontSize: 12
-          }}>
-            Suscribir
-          </button>
-        </div>
-      </div>
-    </div>
-
-    {/* Línea divisoria */}
-    <div style={{
-      borderTop: '1px solid #444',
-      margin: '30px 0 20px 0',
-      padding: '0 20px'
-    }} />
-
-    {/* Copyright */}
-    <div style={{
-      textAlign: 'center',
-      padding: '0 20px',
-      opacity: 0.8
-    }}>
-      <p style={{ margin: '0 0 10px 0' }}>
-        © {new Date().getFullYear()} Oscar Barbieri - Venta de Electrodomésticos. Todos los derechos reservados.
-      </p>
-      <p style={{ margin: 0, fontSize: 12 }}>
-        Desarrollado con ❤️ para ofrecer la mejor experiencia de compra
-      </p>
-    </div>
-  </footer>
-);
 
 const Ecommerce = () => {
   const [currentBanner, setCurrentBanner] = useState(0);
   
-  // Agregar estilos CSS para las animaciones
   React.useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
@@ -406,7 +103,6 @@ const Ecommerce = () => {
       width: '100%',
       boxSizing: 'border-box'
     }}>
-      <Header />
       <main style={{ 
         flex: 1, 
         padding: 'clamp(16px, 3vw, 20px)', 
@@ -454,12 +150,12 @@ const Ecommerce = () => {
                 overflow: 'hidden'
               }}
               onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-4px)';
-                e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
               }}
               onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.07)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.07)';
               }}>
                 <img 
                   src={producto.imagen} 
@@ -527,8 +223,8 @@ const Ecommerce = () => {
                     transition: 'background-color 0.2s',
                     boxSizing: 'border-box'
                   }}
-                  onMouseEnter={(e) => e.target.style.background = '#1565c0'}
-                  onMouseLeave={(e) => e.target.style.background = '#1976d2'}>
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#1565c0'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = '#1976d2'}>
                   Comprar
                 </Link>
               </div>
@@ -536,9 +232,8 @@ const Ecommerce = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
 
-export default Ecommerce; 
+export default Ecommerce;
