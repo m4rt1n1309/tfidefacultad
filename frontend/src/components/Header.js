@@ -5,6 +5,7 @@ export default function Header() {
   const [user, setUser] = useState(() => {
     try { return JSON.parse(localStorage.getItem('user')); } catch (e) { return null; }
   });
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +35,7 @@ export default function Header() {
     setUser(null);
     window.dispatchEvent(new CustomEvent('userChanged', { detail: null }));
     navigate('/');
+    setMenuOpen(false);
   };
 
   return (
@@ -45,14 +47,41 @@ export default function Header() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      boxSizing: 'border-box'
+      boxSizing: 'border-box',
+      flexWrap: 'wrap'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <img src={process.env.PUBLIC_URL + '/oscarbarbieri.jpeg'} alt="Oscar" style={{ width: 48, height: 48, borderRadius: '50%', border: '3px solid #fff' }} />
-        <div style={{ fontWeight: 700, fontSize: 18 }}>Oscar Barbieri - Electrodomésticos</div>
+        <div style={{ fontWeight: 700, fontSize: 18, minWidth: 0 }}>Oscar Barbieri - Electrodomésticos</div>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      {/* Botón hamburguesa en móviles */}
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        style={{
+          display: 'none',
+          background: 'transparent',
+          border: 'none',
+          color: '#fff',
+          fontSize: 24,
+          cursor: 'pointer',
+          '@media (maxWidth: 768px)': { display: 'block' }
+        }}
+        className="hamburguesa-btn"
+      >
+        ☰
+      </button>
+
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: 12,
+        width: '100%',
+        justifyContent: 'flex-end',
+        '@media (maxWidth: 768px)': menuOpen ? { display: 'flex' } : { display: 'none' },
+        flexDirection: window.innerWidth <= 768 ? 'column' : 'row',
+        alignItems: window.innerWidth <= 768 ? 'flex-start' : 'center'
+      }}>
         {/* Nombre del usuario a la izquierda de los botones */}
         {user && (
           <div style={{ marginRight: 8, fontWeight: 600 }}>
@@ -60,20 +89,53 @@ export default function Header() {
           </div>
         )}
 
-        <nav style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-          <Link to="/" style={{ color: '#fff', textDecoration: 'none', padding: '6px 10px' }}>Catálogo</Link>
+        <nav style={{ 
+          display: 'flex', 
+          gap: 12, 
+          alignItems: 'center',
+          flexDirection: window.innerWidth <= 768 && menuOpen ? 'column' : 'row',
+          alignItems: window.innerWidth <= 768 && menuOpen ? 'flex-start' : 'center',
+          width: window.innerWidth <= 768 && menuOpen ? '100%' : 'auto'
+        }}>
+          <Link to="/" onClick={() => setMenuOpen(false)} style={{ color: '#fff', textDecoration: 'none', padding: '6px 10px' }}>Catálogo</Link>
               {user && user.role === 'admin' && (
-                <Link to="/clientes" style={{ color: '#fff', textDecoration: 'none', padding: '6px 10px' }}>Gestión de Clientes</Link>
+                <Link to="/clientes" onClick={() => setMenuOpen(false)} style={{ color: '#fff', textDecoration: 'none', padding: '6px 10px' }}>Gestión de Clientes</Link>
               )}
-          <Link to="/register" style={{ color: '#fff', textDecoration: 'none', padding: '6px 10px', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 6 }}>Registrar</Link>
-          <Link to="/credito" style={{ color: '#fff', textDecoration: 'none', padding: '6px 10px' }}>Crédito</Link>
+          <Link to="/register" onClick={() => setMenuOpen(false)} style={{ color: '#fff', textDecoration: 'none', padding: '6px 10px', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 6 }}>Registrar</Link>
+          <Link to="/credito" onClick={() => setMenuOpen(false)} style={{ color: '#fff', textDecoration: 'none', padding: '6px 10px' }}>Crédito</Link>
           {!user ? (
-            <Link to="/login" style={{ color: '#fff', textDecoration: 'none', padding: '6px 10px', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 6 }}>Iniciar Sesión</Link>
+            <Link to="/login" onClick={() => setMenuOpen(false)} style={{ color: '#fff', textDecoration: 'none', padding: '6px 10px', border: '1px solid rgba(255,255,255,0.2)', borderRadius: 6 }}>Iniciar Sesión</Link>
           ) : (
             <button onClick={handleLogout} style={{ padding: '6px 10px', borderRadius: 6, border: 'none', background: '#d32f2f', color: '#fff', cursor: 'pointer' }}>Cerrar Sesión</button>
           )}
         </nav>
       </div>
+
+      {/* Estilos responsive */}
+      <style>{`
+        @media (max-width: 768px) {
+          .hamburguesa-btn { display: block !important; }
+          header > div:nth-child(3) { 
+            width: 100%;
+            display: ${menuOpen ? 'flex' : 'none'} !important;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+          }
+          header > div:nth-child(3) nav { 
+            flex-direction: column;
+            width: 100%;
+            align-items: flex-start !important;
+          }
+          header > div:nth-child(3) nav a,
+          header > div:nth-child(3) nav button {
+            width: 100%;
+            text-align: left;
+          }
+        }
+      `}</style>
     </header>
   );
 }
